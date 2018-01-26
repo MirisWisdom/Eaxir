@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="EaxPackage.cs" />
     <Compile Include="Interfaces\IInstall.cs" />
+    <Compile Include="Interfaces\IUninstall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
