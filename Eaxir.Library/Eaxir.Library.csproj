@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EaxPackage.cs" />
     <Compile Include="Interfaces\IInstall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
