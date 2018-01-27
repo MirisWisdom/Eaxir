@@ -6,11 +6,6 @@
     public interface IUninstall
     {
         /// <summary>
-        /// Uninstall the package from its default location.
-        /// </summary>
-        void Uninstall();
-
-        /// <summary>
         /// Uninstall the package from a custom location.
         /// </summary>
         /// <param name="path"></param>

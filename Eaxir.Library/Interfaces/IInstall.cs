@@ -6,11 +6,6 @@
     public interface IInstall
     {
         /// <summary>
-        /// Install the package to the default location.
-        /// </summary>
-        void Install();
-
-        /// <summary>
         /// Install the package to a custom location.
         /// </summary>
         /// <param name="path"></param>
