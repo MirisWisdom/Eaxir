@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Eaxir.GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="EAX Installer"
+        ResizeMode="NoResize"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        Width="360">
+    <Grid Width="160">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Label HorizontalAlignment="Center"
+                   FontSize="32"
+                   FontFamily="Segoe UI Light"
+                   Content="Eaxir"/>
+            <Label HorizontalAlignment="Center"
+                   Content="HCE EAX Installer"
+                   Foreground="Gray"></Label>
+        </StackPanel>
+        <StackPanel Margin="0,10,0,0"
+                    Grid.Row="1">
+            <Button Content="Install"
+                    Background="White"
+                    Margin="0,0,0,15"/>
+        </StackPanel>
     </Grid>
 </Window>
