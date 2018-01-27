@@ -1,5 +1,6 @@
 ﻿using Eaxir.Library.Interfaces;
 using Echoic.Binary;
+using Echoic.Checksum;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,42 +9,51 @@ namespace Eaxir.Library
     /// <summary>
     /// Handles the (un)installation of the EAX library.
     /// </summary>
-    public class EaxInstallation : IInstall, IUninstall
+    public class EaxInstallation : IInstall
     {
-        private readonly string _installationPath;
+        private string ConfigurationPath => $"{Path}/{EaxResources.ConfigurationName}";
 
-        private string ConfigurationPath => $"{_installationPath}/{EaxResources.ConfigurationName}";
+        private string LibraryPath => $"{Path}/{EaxResources.LibraryName}";
 
-        private string LibraryPath => $"{_installationPath}/{EaxResources.LibraryName}";
+        public IPatch Patch { get; }
+        public IHash Forge { get; }
+        public string Path { get; }
 
-        public EaxInstallation(string installationPath)
+        /// <summary>
+        /// Constructor for EaxInstallation
+        /// </summary>
+        /// <param name="patch"></param>
+        /// <param name="forge"></param>
+        /// <param name="path"></param>
+        public EaxInstallation(IPatch patch, IHash forge, string path)
         {
-            _installationPath = installationPath;
+            Patch = patch;
+            Forge = forge;
+            Path = path;
         }
 
         /// <summary>
-        /// Install the EAX to a specified HCE directory.
+        /// Uninstall the EAX from a specified HCE directory.
         /// </summary>
-        /// <param name="eaxManipulate"></param>
-        public void Install(IManipulate eaxManipulate)
+        public void Install()
         {
             DeleteFiles();
 
             File.WriteAllBytes(LibraryPath, EaxResources.Library);
             File.WriteAllText(ConfigurationPath, EaxResources.Configuration);
 
-            eaxManipulate.Patch(GetEnablingBytes());
+            Patch.Patch(GetEnablingBytes());
         }
 
+
         /// <summary>
-        /// Uninstall the EAX from a specified HCE directory.
+        /// Install the EAX to a specified HCE directory.
         /// </summary>
-        /// <param name="eaxManipulate"></param>
-        public void Uninstall(IManipulate eaxManipulate)
+        public void Uninstall()
         {
             DeleteFiles();
 
-            eaxManipulate.Patch(GetDisablingBytes());
+            Patch.Patch(GetDisablingBytes());
         }
 
         private Dictionary<int, byte[]> GetDisablingBytes()

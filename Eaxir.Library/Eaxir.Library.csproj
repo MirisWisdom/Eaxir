@@ -48,13 +48,16 @@
       <DependentUpon>EaxResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IInstall.cs" />
-    <Compile Include="Interfaces\IUninstall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Echoic.Library\Echoic.Binary\Echoic.Binary.csproj">
       <Project>{786BF655-FC01-4BB1-A429-3AC3F55CAA31}</Project>
       <Name>Echoic.Binary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Echoic.Library\Echoic.Checksum\Echoic.Checksum.csproj">
+      <Project>{5C905E88-325F-4128-BCDD-1086EF56C727}</Project>
+      <Name>Echoic.Checksum</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using Echoic.Binary;
+using Echoic.Checksum;
 
 namespace Eaxir.Library.Interfaces
 {
@@ -8,9 +9,28 @@ namespace Eaxir.Library.Interfaces
     public interface IInstall
     {
         /// <summary>
-        /// Install the package to a custom location.
+        /// Blam.sav patching class.
         /// </summary>
-        /// <param name="manipulate"></param>
-        void Install(IManipulate manipulate);
+        IPatch Patch { get; }
+
+        /// <summary>
+        /// Blam.sav forging class.
+        /// </summary>
+        IHash Forge { get; }
+
+        /// <summary>
+        /// Directory path value.
+        /// </summary>
+        string Path { get; }
+
+        /// <summary>
+        /// Install the package.
+        /// </summary>
+        void Install();
+
+        /// <summary>
+        /// Uninstall the package.
+        /// </summary>
+        void Uninstall();
     }
 }
