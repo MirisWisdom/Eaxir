@@ -42,8 +42,15 @@
   <ItemGroup>
     <Compile Include="EaxPackage.cs" />
     <Compile Include="Interfaces\IInstall.cs" />
+    <Compile Include="Interfaces\IPatch.cs" />
     <Compile Include="Interfaces\IUninstall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Echoic.Library\Echoic.Binary\Echoic.Binary.csproj">
+      <Project>{786BF655-FC01-4BB1-A429-3AC3F55CAA31}</Project>
+      <Name>Echoic.Binary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
