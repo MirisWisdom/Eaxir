@@ -33,7 +33,7 @@ namespace Eaxir.Library
         }
 
         /// <summary>
-        /// Uninstall teh EAX from a specified HCE directory.
+        /// Uninstall the EAX from a specified HCE directory.
         /// </summary>
         /// <param name="path"></param>
         public void Uninstall(string path)
