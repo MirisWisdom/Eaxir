@@ -1,4 +1,6 @@
-﻿namespace Eaxir.Library.Interfaces
+﻿using Echoic.Binary;
+
+namespace Eaxir.Library.Interfaces
 {
     /// <summary>
     /// Interface for exposing methods that handle uninstallation of packages.
@@ -8,7 +10,7 @@
         /// <summary>
         /// Uninstall the package from a custom location.
         /// </summary>
-        /// <param name="path"></param>
-        void Uninstall(string path);
+        /// <param name="manipulate"></param>
+        void Uninstall(IManipulate manipulate);
     }
 }

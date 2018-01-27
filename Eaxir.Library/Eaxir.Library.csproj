@@ -41,14 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EaxPackage.cs" />
+    <Compile Include="EaxInstallation.cs" />
     <Compile Include="EaxResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EaxResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IInstall.cs" />
-    <Compile Include="Interfaces\IPatch.cs" />
     <Compile Include="Interfaces\IUninstall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

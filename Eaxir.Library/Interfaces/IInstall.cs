@@ -1,4 +1,6 @@
-﻿namespace Eaxir.Library.Interfaces
+﻿using Echoic.Binary;
+
+namespace Eaxir.Library.Interfaces
 {
     /// <summary>
     /// Interface for exposing methods that handle installation of packages.
@@ -8,7 +10,7 @@
         /// <summary>
         /// Install the package to a custom location.
         /// </summary>
-        /// <param name="path"></param>
-        void Install(string path);
+        /// <param name="manipulate"></param>
+        void Install(IManipulate manipulate);
     }
 }

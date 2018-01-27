@@ -8,37 +8,42 @@ namespace Eaxir.Library
     /// <summary>
     /// Handles the (un)installation of the EAX library.
     /// </summary>
-    public class EaxPackage : IInstall, IUninstall
+    public class EaxInstallation : IInstall, IUninstall
     {
-        private readonly IManipulate _eaxManipulate;
+        private readonly string _installationPath;
 
-        public EaxPackage(IManipulate eaxManipulate)
+        private string ConfigurationPath => $"{_installationPath}/{EaxResources.ConfigurationName}";
+
+        private string LibraryPath => $"{_installationPath}/{EaxResources.LibraryName}";
+
+        public EaxInstallation(string installationPath)
         {
-            _eaxManipulate = eaxManipulate;
+            _installationPath = installationPath;
         }
 
         /// <summary>
         /// Install the EAX to a specified HCE directory.
         /// </summary>
-        /// <param name="path"></param>
-        public void Install(string path)
+        /// <param name="eaxManipulate"></param>
+        public void Install(IManipulate eaxManipulate)
         {
-            File.WriteAllBytes(GetLibraryPath(path), EaxResources.Library);
-            File.WriteAllText(GetConfigurationPath(path), EaxResources.Configuration);
+            DeleteFiles();
 
-            _eaxManipulate.Patch(GetEnablingBytes());
+            File.WriteAllBytes(LibraryPath, EaxResources.Library);
+            File.WriteAllText(ConfigurationPath, EaxResources.Configuration);
+
+            eaxManipulate.Patch(GetEnablingBytes());
         }
 
         /// <summary>
         /// Uninstall the EAX from a specified HCE directory.
         /// </summary>
-        /// <param name="path"></param>
-        public void Uninstall(string path)
+        /// <param name="eaxManipulate"></param>
+        public void Uninstall(IManipulate eaxManipulate)
         {
-            File.Delete(GetLibraryPath(path));
-            File.Delete(GetConfigurationPath(path));
+            DeleteFiles();
 
-            _eaxManipulate.Patch(GetDisablingBytes());
+            eaxManipulate.Patch(GetDisablingBytes());
         }
 
         private Dictionary<int, byte[]> GetDisablingBytes()
@@ -63,14 +68,17 @@ namespace Eaxir.Library
             };
         }
 
-        private string GetConfigurationPath(string path)
+        private void DeleteFiles()
         {
-            return $"{path}/{EaxResources.ConfigurationName}";
-        }
+            if (File.Exists(LibraryPath))
+            {
+                File.Delete(LibraryPath);
+            }
 
-        private string GetLibraryPath(string path)
-        {
-            return $"{path}/{EaxResources.LibraryName}";
+            if (File.Exists(ConfigurationPath))
+            {
+                File.Exists(ConfigurationPath);
+            }
         }
     }
 }
