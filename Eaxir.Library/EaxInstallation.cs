@@ -87,7 +87,7 @@ namespace Eaxir.Library
 
             if (File.Exists(ConfigurationPath))
             {
-                File.Exists(ConfigurationPath);
+                File.Delete(ConfigurationPath);
             }
         }
     }
