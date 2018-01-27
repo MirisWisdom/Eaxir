@@ -1,4 +1,7 @@
 ﻿using Eaxir.Library.Interfaces;
+using Echoic.Binary;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Eaxir.Library
 {
@@ -7,12 +10,11 @@ namespace Eaxir.Library
     /// </summary>
     public class EaxPackage : IInstall, IUninstall
     {
-        /// <summary>
-        /// Automatically install the EAX to the HCE directory.
-        /// </summary>
-        public void Install()
+        private readonly IManipulate _eaxManipulate;
+
+        public EaxPackage(IManipulate eaxManipulate)
         {
-            throw new System.NotImplementedException();
+            _eaxManipulate = eaxManipulate;
         }
 
         /// <summary>
@@ -21,15 +23,10 @@ namespace Eaxir.Library
         /// <param name="path"></param>
         public void Install(string path)
         {
-            throw new System.NotImplementedException();
-        }
+            File.WriteAllBytes(GetLibraryPath(path), EaxResources.Library);
+            File.WriteAllText(GetConfigurationPath(path), EaxResources.Configuration);
 
-        /// <summary>
-        /// Automatically uninstall the EAX from the HCE directory.
-        /// </summary>
-        public void Uninstall()
-        {
-            throw new System.NotImplementedException();
+            _eaxManipulate.Patch(GetEnablingBytes());
         }
 
         /// <summary>
@@ -38,7 +35,42 @@ namespace Eaxir.Library
         /// <param name="path"></param>
         public void Uninstall(string path)
         {
-            throw new System.NotImplementedException();
+            File.Delete(GetLibraryPath(path));
+            File.Delete(GetConfigurationPath(path));
+
+            _eaxManipulate.Patch(GetDisablingBytes());
+        }
+
+        private Dictionary<int, byte[]> GetDisablingBytes()
+        {
+            return new Dictionary<int, byte[]>
+            {
+                { 0xB7C, new byte[] { 0x01 } },
+                { 0xB7B, new byte[] { 0x01 } },
+                { 0xB7F, new byte[] { 0x01 } },
+                { 0xB7D, new byte[] { 0x01 } },
+            };
+        }
+
+        private Dictionary<int, byte[]> GetEnablingBytes()
+        {
+            return new Dictionary<int, byte[]>
+            {
+                { 0xB7C, new byte[] { 0x01 } },
+                { 0xB7B, new byte[] { 0x01 } },
+                { 0xB7F, new byte[] { 0x02 } },
+                { 0xB7D, new byte[] { 0x02 } },
+            };
+        }
+
+        private string GetConfigurationPath(string path)
+        {
+            return $"{path}/{EaxResources.ConfigurationName}";
+        }
+
+        private string GetLibraryPath(string path)
+        {
+            return $"{path}/{EaxResources.LibraryName}";
         }
     }
 }
